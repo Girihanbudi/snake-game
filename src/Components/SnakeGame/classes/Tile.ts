@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { Position } from "../../../types/Position";
+import { Position } from "@/types/Position";
 
 /** Tile is an individual tile that form a canvas */
 export default class Tile {

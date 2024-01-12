@@ -1,4 +1,4 @@
-import Player from "@/app/types/Player";
+import Player from "@/types/Player";
 import { secondAsTimer } from "@/utils/time";
 
 export default class ScoreManager {

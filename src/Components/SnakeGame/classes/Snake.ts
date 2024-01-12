@@ -1,7 +1,7 @@
-import { initialPosition } from "../../../types/Position";
-import Position from "../../../types/Position";
+import { initialPosition } from "@/types/Position";
+import Position from "@/types/Position";
 import { Direction } from "../enums";
-import GameObject from "../../../types/GameObject";
+import GameObject from "@/types/GameObject";
 import { CSSProperties } from "react";
 
 /** Head of the snake */

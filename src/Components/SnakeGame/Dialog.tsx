@@ -24,7 +24,7 @@ import {
   Stack,
 } from "@mui/material";
 import { secondAsTimer } from "@/utils/time";
-import Player from "@/app/types/Player";
+import Player from "@/types/Player";
 import KeyCode from "../KeyCode";
 
 const Transition = forwardRef(function Transition(

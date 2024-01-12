@@ -1,4 +1,4 @@
-import Player from "@/app/types/Player";
+import Player from "@/types/Player";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Request extends Player {}
