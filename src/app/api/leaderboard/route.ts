@@ -8,7 +8,6 @@ let leaderboard: Player[] = [];
 
 export const POST = async (req: NextRequest) => {
   const data = (await req.json()) as Request;
-  console.log("data sent", data);
 
   const insertIndex = leaderboard.findIndex(
     (player) =>
