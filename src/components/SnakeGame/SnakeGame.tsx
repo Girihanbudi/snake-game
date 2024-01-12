@@ -9,7 +9,7 @@ import Canvas, {
 import Snake from "./classes/Snake";
 import Fruit from "./classes/Fruit";
 import Controller from "./classes/Controller";
-import Score from "./classes/ScoreManager";
+import ScoreManager from "./classes/ScoreManager";
 import GameManager from "./classes/GameManager";
 import Dialog from "./Dialog";
 
@@ -48,7 +48,7 @@ const fruit = new Fruit(
 );
 
 const gameManager = new GameManager();
-const score = new Score();
+const score = new ScoreManager();
 
 export interface GameProps {
   tileSize?: number;
