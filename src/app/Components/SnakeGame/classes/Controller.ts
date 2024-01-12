@@ -1,4 +1,4 @@
-import Action from "../../types/Action";
+import Action from "../../../types/Action";
 
 export interface ControllerAction<T> {
   [key: string]: Action<T>;

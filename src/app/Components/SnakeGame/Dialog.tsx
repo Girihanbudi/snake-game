@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import { secondAsTimer } from "@/utils/time";
 import Player from "@/app/types/Player";
+import KeyCode from "../KeyCode";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -125,6 +126,7 @@ export default function Dialog({
             <Tab label="Your Score" {...a11yProps(0)} />
             <Tab label="New Game" {...a11yProps(1)} />
             <Tab label="Leaderboard" {...a11yProps(2)} />
+            <Tab label="How To Play" {...a11yProps(3)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={tabVal} index={0}>
@@ -199,6 +201,47 @@ export default function Dialog({
               </Grid>
             ))}
           </Stack>
+        </CustomTabPanel>
+        <CustomTabPanel value={tabVal} index={3}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={1}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item sm={2}>
+              <KeyCode>W</KeyCode>
+            </Grid>
+            <Grid item sm={10}>
+              <Typography textAlign="left">To move up</Typography>
+            </Grid>
+            <Grid item sm={2}>
+              <KeyCode>A</KeyCode>
+            </Grid>
+            <Grid item sm={10}>
+              <Typography textAlign="left">To move left</Typography>
+            </Grid>
+            <Grid item sm={2}>
+              <KeyCode>S</KeyCode>
+            </Grid>
+            <Grid item sm={10}>
+              <Typography textAlign="left">To move down</Typography>
+            </Grid>
+            <Grid item sm={2}>
+              <KeyCode>D</KeyCode>
+            </Grid>
+            <Grid item sm={10}>
+              <Typography textAlign="left">To move right</Typography>
+            </Grid>
+            <Grid item sm={2}>
+              <KeyCode width="42px">Esc</KeyCode>
+            </Grid>
+            <Grid item sm={10}>
+              <Typography textAlign="left">To pause the game</Typography>
+            </Grid>
+          </Grid>
         </CustomTabPanel>
       </DialogContent>
     </MuiDialog>

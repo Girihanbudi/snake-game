@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import Tile from "./Tile";
-import GameObject from "../../types/GameObject";
+import GameObject from "../../../types/GameObject";
 
 export const DEFAULT_CANVAS_WIDTH = 20;
 export const DEFAULT_CANVAS_HEIGHT = 10;

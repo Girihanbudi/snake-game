@@ -1,4 +1,4 @@
-import SnakeGame from "./SnakeGame";
+import SnakeGame from "./Components/SnakeGame";
 
 export default function Home() {
   return (

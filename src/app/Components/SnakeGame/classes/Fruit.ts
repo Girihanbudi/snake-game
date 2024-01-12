@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
-import GameObject from "../../types/GameObject";
-import Position, { initialPosition } from "../../types/Position";
+import GameObject from "../../../types/GameObject";
+import Position, { initialPosition } from "../../../types/Position";
 import { randomRangeInteger } from "@/utils/number";
 import Snake from "./Snake";
 
