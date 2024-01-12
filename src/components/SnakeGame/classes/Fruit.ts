@@ -15,6 +15,13 @@ export default class Fruit implements GameObject {
   private boundaryX: number;
   private boundaryY: number;
 
+  /**
+   * @param {string} name the name of the object name
+   * @param {CSSProperties} style the snake style
+   * @param {Number} boundaryX the width of our canvas
+   * @param {Number} boundaryY the height of our canvas
+   * @param {Snake} snakeRef the ref to the snake object
+   */
   constructor(
     name: string,
     style: CSSProperties,
@@ -30,12 +37,14 @@ export default class Fruit implements GameObject {
     this.snakeRef = snakeRef;
   }
 
+  /** Generate new location for the fruit in the canvas range position */
   generateSpawnLocation(): Position {
     const x = randomRangeInteger(0, this.boundaryX - 1);
     const y = randomRangeInteger(0, this.boundaryY - 1);
     return { x, y };
   }
 
+  /** Set the fruit position, keep generating new position if the position already filled by the snake */
   setNewSpawnLocation() {
     let collideObj: GameObject | undefined = undefined;
 
@@ -49,15 +58,18 @@ export default class Fruit implements GameObject {
     } while (collideObj !== undefined);
   }
 
+  /** Set the fruit location */
   setLocation(pos: Position) {
     this.pos = pos;
   }
 
+  /** Set new boundary if the canvas size is change */
   setNewBoundary(width: number, height: number) {
     this.boundaryX = width;
     this.boundaryY = height;
   }
 
+  /** Set new style for the snake */
   setNewStyle(style: CSSProperties) {
     this.style = style;
   }

@@ -81,7 +81,7 @@ export function SnakeGame({
   const [currentScore, setCurrentScore] = useState<number>(0);
 
   useEffect(() => {
-    // Bind actions to controller
+    // Bind action lists to controller
     controller.bindAction(
       {
         name: "pause",
@@ -128,38 +128,48 @@ export function SnakeGame({
       "D",
       "keyright"
     );
-  }, []);
 
-  function onStart() {
-    setOpenMenu(false);
-
-    snake.setNewBoundary(width, height);
-    snake.setNewStyle(stySnake);
-    snake.changeMovement("RIGHT");
-    snake.setNewSpawnLocation();
-
-    fruit.setNewBoundary(width, height);
-    fruit.setNewStyle(styFruit);
-    fruit.setNewSpawnLocation();
-
+    // Bind our controller to global event listener
     const keyboardEvent = (e: KeyboardEvent) => {
       // console.log("key pressed ===", e);
       const event = controller.getActionFunc(e.key);
       if (event) event();
     };
-
     window.addEventListener("keyup", keyboardEvent, false);
+  }, []);
 
+  /** This function will be called every time the game started */
+  function onStart() {
+    // Close the dialog
+    setOpenMenu(false);
+
+    // Init the snake
+    snake.setNewBoundary(width, height);
+    snake.setNewStyle(stySnake);
+    snake.changeMovement("RIGHT");
+    snake.setNewSpawnLocation();
+
+    // Init the fruit
+    fruit.setNewBoundary(width, height);
+    fruit.setNewStyle(styFruit);
+    fruit.setNewSpawnLocation();
+
+    // Start scoring
     score.startScoring();
     setGameTime(score.getGameTime());
     setCurrentScore(score.getScore());
+
+    // Start the game after all initiated
     gameManager.start();
   }
 
+  /** This function will be called every interval of the game */
   function onUpdate() {
+    // If the game is not started yet or currently paused then return
     if (!gameManager.isPlaying()) return;
     if (gameManager.isPaused()) return;
 
+    // Check if the snake is dead, then set the game to over
     if (snake.isDead()) {
       onEnd();
       return;
@@ -168,18 +178,22 @@ export function SnakeGame({
     setTimer(Date.now());
     setGameTime(score.updateGameTime());
 
-    // Check collision
+    // Check collision between snake and fruit
     if (snake.positionMatch(fruit.pos)) {
+      // If collide then eat, spawn new location and add current score
       snake.eat();
       fruit.setNewSpawnLocation();
       setCurrentScore(score.addScore());
     } else {
+      // If not collide then just keep the snake moving
       snake.move();
     }
+    // Redraw the canvas
     canvas.drawCanvas(...snake.getWholeBodiesAsGameObject(), fruit);
     setCanvas(canvas);
   }
 
+  /** This function will be called when the game is over (the snake is dead) */
   function onEnd() {
     if (gameIntervalId !== null) {
       clearInterval(gameIntervalId);
@@ -192,6 +206,9 @@ export function SnakeGame({
     score.submitScore(player);
   }
 
+  /** This function is used to trigger the game to be started
+   * It will set the interval based on 1 seconds divided by choosen speed
+   */
   const startGame = () => {
     onStart();
     const intervalId = setInterval(function () {
@@ -211,7 +228,9 @@ export function SnakeGame({
       }}
     >
       <Stack spacing={6} alignItems="center">
+        {/* Title of the game */}
         <Typography variant="h3">{process.env.NEXT_PUBLIC_TITLE}</Typography>
+        {/* Game Play Information Component */}
         <Stack direction="row" spacing={10} sx={{ textAlign: "center" }}>
           <Box>
             <Typography color="aqua" fontWeight="bold">
@@ -247,7 +266,7 @@ export function SnakeGame({
             <Box
               key={i}
               sx={{
-                flex: `1 0 ${100 / width}%`,
+                flex: `1 0 ${100 / width}%`, // divide by the number of tiles horizontally to perform correct grid
                 width: tileSize,
                 height: tileSize,
               }}
@@ -258,6 +277,7 @@ export function SnakeGame({
               </Typography> */}
             </Box>
           ))}
+          {/* Paused backdrop component */}
           {paused && (
             <Box
               sx={{

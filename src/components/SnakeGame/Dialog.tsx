@@ -94,6 +94,7 @@ export default function Dialog({
     setTabVal(newValue);
   };
 
+  /** Fetch leaderboard data */
   useEffect(() => {
     fetch("/api/leaderboard")
       .then((response) => response.json())

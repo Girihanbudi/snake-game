@@ -40,6 +40,12 @@ export default class Snake implements GameObject {
   private boundaryY: number;
   readonly initialLength: number;
 
+  /**
+   * @param {string} name the name of the object name
+   * @param {CSSProperties} style the snake style
+   * @param {Number} boundaryX the width of our canvas
+   * @param {Number} boundaryY the height of our canvas
+   */
   constructor(
     name: string,
     style: CSSProperties,
@@ -55,6 +61,7 @@ export default class Snake implements GameObject {
     this.initialLength = 3;
   }
 
+  /** Init each of body location based on the head position and direction */
   initBodyLocation(): Body[] {
     let newBodies: Body[] = [];
     for (let i = this.initialLength - 1; i > 0; i--) {
@@ -78,18 +85,21 @@ export default class Snake implements GameObject {
     return newBodies;
   }
 
+  /** Generate position in the middle of the canvas */
   generateSpawnLocation(): Position {
     const x = Math.floor(this.boundaryX / 2) - 1;
     const y = Math.floor(this.boundaryY / 2);
     return { x, y };
   }
 
+  /** Init head location and place each of snake body in the correct location */
   setNewSpawnLocation() {
     this.pos = this.generateSpawnLocation();
     this.head.pos = this.pos;
     this.bodies = this.initBodyLocation();
   }
 
+  /** Change the snake direction, ignore if new direction is the opposite of current direction */
   changeMovement(newDirection: Direction) {
     if (this.freezed) {
       return;
@@ -108,6 +118,7 @@ export default class Snake implements GameObject {
     this.direction = newDirection;
   }
 
+  /** Generate next position for the head based on snake direction */
   getNextPos(): Position {
     let nextPos = { ...this.head.pos };
     switch (this.direction) {
@@ -128,16 +139,27 @@ export default class Snake implements GameObject {
     return nextPos;
   }
 
+  /**
+   * Move the snake. It will shift the snake array,
+   * add new body with current head position, remove the tail and replace the head position with the new one
+   */
   move() {
     this.bodies = [...this.bodies.slice(1), new Body(this.head.pos)];
     this.head.pos = this.getNextPos();
   }
 
+  /**
+   * Eat the fruit. It will shift the snake array,
+   * add new body with current head position and replace the head position with the new one
+   */
   eat() {
     this.bodies = [...this.bodies, new Body(this.head.pos)];
     this.head.pos = this.getNextPos();
   }
 
+  /**
+   * Turn head and bodies as GameObject to update the canvas
+   */
   getWholeBodiesAsGameObject(): GameObject[] {
     let bodies: GameObject[] = [];
 
@@ -159,10 +181,15 @@ export default class Snake implements GameObject {
     return bodies;
   }
 
+  /**
+   * Check if head position match with given position.
+   * This function will be used to decide to move or to eat
+   */
   positionMatch({ x, y }: Position): boolean {
     return this.head.pos.x === x && this.head.pos.y === y;
   }
 
+  /** Check whenever if snake should die */
   isDead(): boolean {
     if (
       this.bodies.find(
@@ -182,11 +209,13 @@ export default class Snake implements GameObject {
     return false;
   }
 
+  /** Set new boundary if the canvas size is change */
   setNewBoundary(width: number, height: number) {
     this.boundaryX = width;
     this.boundaryY = height;
   }
 
+  /** Set new style for the snake */
   setNewStyle(style: CSSProperties) {
     this.style = style;
   }

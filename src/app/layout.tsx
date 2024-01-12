@@ -54,6 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* Set the hydration provider on the client side by default */}
         <HydrationProvider>
           <Client>
             <ThemeProvider theme={MuiTheme}>{children}</ThemeProvider>
